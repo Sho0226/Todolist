@@ -1,5 +1,5 @@
 import type { Prisma } from '@prisma/client';
-import { type Todo } from '@prisma/client';
+import type { Todo } from 'common/types/todo';
 
 const getAllTodos = async (tx: Prisma.TransactionClient): Promise<Todo[]> => {
   return await tx.todo.findMany();
