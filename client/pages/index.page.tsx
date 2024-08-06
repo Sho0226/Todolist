@@ -1,4 +1,3 @@
-
 // import { TaskList } from 'features/tasks/TaskList';
 // import { Layout } from 'layouts/Layout';
 // import styles from './index.module.css';
@@ -15,6 +14,3 @@
 //     />
 //   );
 // };
-
-// export default Home;
->>>>>>> cf757e9 (Initial commit)

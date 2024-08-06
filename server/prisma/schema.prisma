@@ -24,3 +24,10 @@ model Task {
   Author    User     @relation(fields: [authorId], references: [id])
   authorId  String
 }
+
+model Todo {
+  id        String   @id
+  title     String
+  createdAt DateTime
+  updateAt  DateTime
+}
