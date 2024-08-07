@@ -3,9 +3,6 @@ import type { Todo } from 'common/types/todo';
 
 export type Methods = DefineMethods<{
   get: {
-    query?: {
-      gets: boolean;
-    };
     resBody: Todo[];
   };
   post: {

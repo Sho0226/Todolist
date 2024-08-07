@@ -8,7 +8,7 @@ export default defineController(() => ({
   }),
   post: async ({ body }) => ({
     status: 201,
-    body: await todoUseCase.createTodo(body.creates),
+    body: await todoUseCase.createTodo(body.title),
   }),
   put: async ({ params, body }) => {
     const { id } = params;
