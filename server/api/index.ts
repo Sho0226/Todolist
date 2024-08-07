@@ -14,5 +14,19 @@ export type Methods = DefineMethods<{
     };
     resBody: Todo[];
   };
-  put: {};
+  put: {
+    params: {
+      id: number;
+    };
+    resBody: {
+      title: string;
+    };
+    reqBody: Todo | null;
+  };
+  delete: {
+    params: {
+      id: number;
+    };
+    reqBody: void;
+  };
 }>;
