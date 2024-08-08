@@ -29,5 +29,5 @@ model Todo {
   id        Int      @id @default(autoincrement())
   title     String
   createdAt DateTime
-  updateAt  DateTime
+  updatedAt DateTime
 }

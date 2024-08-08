@@ -10,7 +10,7 @@ const createTodo = async (tx: Prisma.TransactionClient, title: string): Promise<
     data: {
       title,
       createdAt: new Date(),
-      updateAt: new Date(),
+      updatedAt: new Date(),
     },
   });
 };
@@ -24,7 +24,7 @@ const updateTodo = async (
     where: { id },
     data: {
       title,
-      updateAt: new Date(),
+      updatedAt: new Date(),
     },
   });
 };

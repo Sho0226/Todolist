@@ -9,21 +9,21 @@ export type Methods = DefineMethods<{
     reqBody: {
       title: string;
     };
-    resBody: Todo[];
+    resBody: Todo;
   };
   put: {
     params: {
       id: number;
     };
-    resBody: {
+    reqBody: {
       title: string;
     };
-    reqBody: Todo | null;
+    resBody: Todo | null;
   };
   delete: {
     params: {
       id: number;
     };
-    reqBody: void;
+    resBody: void;
   };
 }>;

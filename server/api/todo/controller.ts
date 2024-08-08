@@ -2,7 +2,7 @@ import { todoUseCase } from 'domain/todolist/useCase/todoUseCase';
 import { defineController } from './$relay';
 
 export default defineController(() => ({
-  get: async ({ query }) => ({
+  get: async () => ({
     status: 200,
     body: await todoUseCase.getTodo(),
   }),
