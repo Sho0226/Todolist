@@ -6,6 +6,7 @@ export default defineController(() => ({
     status: 200,
     body: await todoUseCase.getTodo(),
   }),
+  //bodyがおかしい
   post: async ({ body }) => ({
     status: 201,
     body: await todoUseCase.createTodo(body.title),
