@@ -1,7 +1,27 @@
 import type { DefineMethods } from 'aspida';
+import type { Todo } from 'common/types/todo';
 
 export type Methods = DefineMethods<{
   get: {
-    resBody: string;
+    resBody: Todo[];
+  };
+  post: {
+    reqBody: {
+      title: string;
+    };
+    resBody: Todo;
+  };
+  put: {
+    reqBody: {
+      title: string;
+      id: number;
+    };
+    resBody: Todo | null;
+  };
+  delete: {
+    reqBody: {
+      id: number;
+    };
+    resBody: void;
   };
 }>;

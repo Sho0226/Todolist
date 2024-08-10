@@ -6,26 +6,22 @@ export default defineController(() => ({
     status: 200,
     body: await todoUseCase.getTodo(),
   }),
-  //bodyがおかしい
-  //関数の引数がanyなのもおかしい
-  post: async ({ body }: { body: { title: string } }) => ({
+  post: async ({ body }) => ({
     status: 201,
     body: await todoUseCase.createTodo(body.title),
   }),
-  put: async ({ params, body }: { params: { id: number }; body: { title: string } }) => {
-    const { id } = params;
-    const todo = await todoUseCase.updateTodo(Number(id), body.title);
+  put: async ({ body }) => {
+    const todo = await todoUseCase.updateTodo(body.id, body.title);
     if (todo) {
       return { status: 200, body: todo };
     } else {
       return { status: 404, body: { error: 'Todo Not Found' } };
     }
   },
-  delete: async ({ params }: { params: { id: number } }) => {
-    const { id } = params;
-    const result = await todoUseCase.deleteTodo(Number(id));
+  delete: async ({ body }) => {
+    const result = await todoUseCase.deleteTodo(body.id);
     if (result) {
-      return { status: 204 };
+      return { status: 204, body: undefined };
     } else {
       return { status: 404, body: { error: 'Todo Not Found' } };
     }
