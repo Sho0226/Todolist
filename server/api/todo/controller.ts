@@ -8,11 +8,11 @@ export default defineController(() => ({
   }),
   //bodyがおかしい
   //関数の引数がanyなのもおかしい
-  post: async ({ body }) => ({
+  post: async ({ body }: { body: { title: string } }) => ({
     status: 201,
     body: await todoUseCase.createTodo(body.title),
   }),
-  put: async ({ params, body }) => {
+  put: async ({ params, body }: { params: { id: number }; body: { title: string } }) => {
     const { id } = params;
     const todo = await todoUseCase.updateTodo(Number(id), body.title);
     if (todo) {
@@ -21,7 +21,7 @@ export default defineController(() => ({
       return { status: 404, body: { error: 'Todo Not Found' } };
     }
   },
-  delete: async ({ params }) => {
+  delete: async ({ params }: { params: { id: number } }) => {
     const { id } = params;
     const result = await todoUseCase.deleteTodo(Number(id));
     if (result) {
