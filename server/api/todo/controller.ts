@@ -7,6 +7,7 @@ export default defineController(() => ({
     body: await todoUseCase.getTodo(),
   }),
   //bodyがおかしい
+  //関数の引数がanyなのもおかしい
   post: async ({ body }) => ({
     status: 201,
     body: await todoUseCase.createTodo(body.title),
