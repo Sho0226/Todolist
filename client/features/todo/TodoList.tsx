@@ -19,7 +19,7 @@ function TodoList() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (editId !== null) {
-      await apiClient.todo._id(editId).$put({ body: { title, id: editId } });
+      await apiClient.todo.editId.$put({ body: { title, id: editId } });
     } else {
       await apiClient.todo.$post({ body: { title } });
     }
@@ -34,7 +34,7 @@ function TodoList() {
   };
 
   const handleDelete = async (id: number) => {
-    await apiClient.todo._id(id).$delete();
+    await apiClient.todo.id.$delete();
     fetchTodos();
   };
 
