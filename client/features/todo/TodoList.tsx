@@ -1,8 +1,9 @@
+import type { Todo } from 'common/types/todo';
 import React, { useEffect, useState } from 'react';
 import { apiClient } from 'utils/apiClient';
 
 function TodoList() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [title, setTitle] = useState('');
   const [editId, setEditId] = useState<number | null>(null);
 
@@ -18,9 +19,9 @@ function TodoList() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (editId !== null) {
-      await apiClient.todo._id(editId).$put({ title });
+      await apiClient.todo._id(editId).$put({ body: { title, id: editId } });
     } else {
-      await apiClient.todo.$post({ title });
+      await apiClient.todo.$post({ body: { title } });
     }
     setTitle('');
     setEditId(null);
