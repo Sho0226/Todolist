@@ -18,14 +18,18 @@ function TodoList() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editId !== null) {
-      await apiClient.todo.editId.$put({ body: { title, id: editId } });
-    } else {
-      await apiClient.todo.$post({ body: { title } });
+    try {
+      if (editId !== null) {
+        await apiClient.todo.$put({ body: { title, id: editId } });
+      } else {
+        await apiClient.todo.$post({ body: { title } });
+      }
+      setTitle('');
+      setEditId(null);
+      fetchTodos();
+    } catch (error) {
+      console.error('Error submitting todo:', error);
     }
-    setTitle('');
-    setEditId(null);
-    fetchTodos();
   };
 
   const handleEdit = (id: number, currentTitle: string) => {
@@ -34,10 +38,13 @@ function TodoList() {
   };
 
   const handleDelete = async (id: number) => {
-    await apiClient.todo.id.$delete();
-    fetchTodos();
+    try {
+      await apiClient.todo.$delete({ body: { id } });
+      fetchTodos();
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
   };
-
   return (
     <div>
       <h1>Todo List</h1>
