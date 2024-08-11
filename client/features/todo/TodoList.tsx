@@ -6,21 +6,14 @@ function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [title, setTitle] = useState('');
   const [editId, setEditId] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTodos();
   }, []);
 
   const fetchTodos = async () => {
-    try {
-      const response = await apiClient.todo.$get();
-      setTodos(response);
-      setError(null);
-    } catch (error) {
-      console.error('Error fetching todos:', error);
-      setError('Failed to fetch todos. Please try again.');
-    }
+    const response = await apiClient.todo.$get();
+    setTodos(response);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,7 +48,6 @@ function TodoList() {
   return (
     <div>
       <h1>Todo List</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
