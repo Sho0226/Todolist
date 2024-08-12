@@ -2,7 +2,7 @@ import type { Todo } from 'common/types/todo';
 import React, { useEffect, useState } from 'react';
 import { apiClient } from 'utils/apiClient';
 
-function TodoList() {
+const TodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [title, setTitle] = useState('');
   const [editId, setEditId] = useState<number | null>(null);
@@ -12,8 +12,8 @@ function TodoList() {
   }, []);
 
   const fetchTodos = async () => {
-    const response = await apiClient.todo.$get();
-    setTodos(response);
+    const res = await apiClient.todo.$get();
+    setTodos(res);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -68,6 +68,6 @@ function TodoList() {
       </ul>
     </div>
   );
-}
+};
 
 export default TodoList;
