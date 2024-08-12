@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100vw;
   height: 100vh;
   text-align: center;
@@ -10,6 +10,7 @@
 }
 
 .title {
+  font-size: 3em;
   color: #2f4f4f;
 }
 
@@ -73,4 +74,14 @@
 
 .disabledButton:hover {
   background-color: #ccc;
+}
+
+.error {
+  height: 2em; /* 固定の高さを設定 */
+  color: red;
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden; /* エラーメッセージが表示されないときに高さを維持する */
 }

@@ -7,6 +7,7 @@ const TodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [title, setTitle] = useState('');
   const [editId, setEditId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null); // 警告メッセージの状態を追加
 
   useEffect(() => {
     fetchTodos();
@@ -19,6 +20,11 @@ const TodoList = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (title.trim().length === 0) {
+      setError('タイトルを入力してください');
+      return;
+    }
+
     try {
       if (editId !== null) {
         await apiClient.todo.$put({ body: { title, id: editId } });
@@ -28,8 +34,10 @@ const TodoList = () => {
       setTitle('');
       setEditId(null);
       fetchTodos();
+      setError(null); // 成功時にエラーメッセージをクリア
     } catch (error) {
       console.error('Error submitting todo:', error);
+      setError('Todoの送信中にエラーが発生しました'); // 失敗時にエラーメッセージを設定
     }
   };
 
@@ -49,7 +57,8 @@ const TodoList = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Todo List</h1>
+      <h1 className={styles.title}>Todo List</h1>{' '}
+      <div className={`${styles.error} ${!error ? styles.hidden : ''}`}>{error}</div>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
