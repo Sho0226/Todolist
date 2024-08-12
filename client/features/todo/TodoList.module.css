@@ -9,6 +9,10 @@
   background-color: aliceblue;
 }
 
+.title {
+  color: #2f4f4f;
+}
+
 .form {
   display: flex;
   margin-bottom: 2em;

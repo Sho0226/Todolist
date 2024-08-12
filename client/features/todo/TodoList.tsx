@@ -49,7 +49,7 @@ const TodoList = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Todo List</h1>
+      <h1 className={styles.title}>Todo List</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
