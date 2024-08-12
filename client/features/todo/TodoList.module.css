@@ -1,23 +1,72 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
   text-align: center;
   background-color: aliceblue;
 }
 
-.boxStyle {
-  padding: 0.5em 1em;
-  margin: 2em 0;
-  background: #fff;
-  border: solid 3px #6091d3; /* 線 */
-  border-radius: 10px; /* 角の丸み */
+.form {
+  display: flex;
+  margin-bottom: 2em;
 }
 
-.handleStyle {
+.input {
+  padding: 0.5em;
+  margin-right: 0.5em;
+  border: 2px solid #222;
+  border-radius: 5px;
+}
+
+.button {
   padding: 0.5em 1em;
-  margin: 2em 0;
-  color: #00bcd4;
-  background: #e4fcff; /* 背景色 */
-  border-top: solid 6px #1dc1d6;
-  box-shadow: 0 3px 4px rgb(0 0 0 / 32%); /* 影 */
+  font-size: 1em;
+  color: white;
+  cursor: pointer;
+  background-color: #223f3f;
+  border: none;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #1f3434;
+}
+
+.box {
+  width: 80%;
+  max-width: 600px;
+  padding: 1em;
+  background: #fff;
+  border: 3px solid #222;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 10%);
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.todo:last-child {
+  border-bottom: none;
+}
+
+.todo span {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.disabledButton {
+  cursor: not-allowed;
+  background-color: #ccc;
+}
+
+.disabledButton:hover {
+  background-color: #ccc;
 }

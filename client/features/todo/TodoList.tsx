@@ -46,25 +46,37 @@ const TodoList = () => {
       console.error('Error deleting todo:', error);
     }
   };
+
   return (
     <div className={styles.container}>
       <h1>Todo List</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter todo title"
+          className={styles.input}
         />
-        <button type="submit">{editId !== null ? 'Update Todo' : 'Add Todo'}</button>
+        <button type="submit" className={styles.button}>
+          {editId !== null ? 'Update Todo' : 'Add Todo'}
+        </button>
       </form>
-      <div className={styles.boxStyle}>
+      <div className={styles.box}>
         {todos.map((todo) => (
-          <ul key={todo.id} className={styles.handleStyle}>
-            {todo.title} <br></br>
-            <button onClick={() => handleEdit(todo.id, todo.title)}>Edit</button>
-            <button onClick={() => handleDelete(todo.id)}>Delete</button>
-          </ul>
+          <div key={todo.id} className={styles.todo}>
+            <span>{todo.title}</span>
+            <button onClick={() => handleEdit(todo.id, todo.title)} className={styles.button}>
+              Edit
+            </button>
+            <button
+              onClick={() => handleDelete(todo.id)}
+              className={`${styles.button} ${editId === todo.id ? styles.disabledButton : ''}`}
+              disabled={editId === todo.id}
+            >
+              Delete
+            </button>
+          </div>
         ))}
       </div>
     </div>
