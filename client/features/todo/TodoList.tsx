@@ -1,6 +1,7 @@
 import type { Todo } from 'common/types/todo';
 import React, { useEffect, useState } from 'react';
 import { apiClient } from 'utils/apiClient';
+import styles from './TodoList.module.css';
 
 const TodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -46,7 +47,7 @@ const TodoList = () => {
     }
   };
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Todo List</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -59,11 +60,11 @@ const TodoList = () => {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>
+          <ul key={todo.id}>
             {todo.title}
             <button onClick={() => handleEdit(todo.id, todo.title)}>Edit</button>
             <button onClick={() => handleDelete(todo.id)}>Delete</button>
-          </li>
+          </ul>
         ))}
       </ul>
     </div>
