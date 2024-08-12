@@ -4,3 +4,20 @@
   text-align: center;
   background-color: aliceblue;
 }
+
+.boxStyle {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  background: #fff;
+  border: solid 3px #6091d3; /* 線 */
+  border-radius: 10px; /* 角の丸み */
+}
+
+.handleStyle {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #00bcd4;
+  background: #e4fcff; /* 背景色 */
+  border-top: solid 6px #1dc1d6;
+  box-shadow: 0 3px 4px rgb(0 0 0 / 32%); /* 影 */
+}

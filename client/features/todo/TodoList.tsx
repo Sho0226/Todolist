@@ -58,15 +58,15 @@ const TodoList = () => {
         />
         <button type="submit">{editId !== null ? 'Update Todo' : 'Add Todo'}</button>
       </form>
-      <ul>
+      <div className={styles.boxStyle}>
         {todos.map((todo) => (
-          <ul key={todo.id}>
-            {todo.title}
+          <ul key={todo.id} className={styles.handleStyle}>
+            {todo.title} <br></br>
             <button onClick={() => handleEdit(todo.id, todo.title)}>Edit</button>
             <button onClick={() => handleDelete(todo.id)}>Delete</button>
           </ul>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
