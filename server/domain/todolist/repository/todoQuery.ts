@@ -13,7 +13,7 @@ const getAllTodos = async (tx: Prisma.TransactionClient): Promise<Todo[]> => {
 const createTodo = async (
   tx: Prisma.TransactionClient,
   title: string,
-  description: string,
+  notes: string,
 ): Promise<Todo> => {
   try {
     return await tx.todo.create({
@@ -21,6 +21,7 @@ const createTodo = async (
         title,
         createdAt: new Date(),
         updatedAt: new Date(),
+        notes,
       },
     });
   } catch (error) {
@@ -32,6 +33,7 @@ const createTodo = async (
 const updateTodo = async (
   tx: Prisma.TransactionClient,
   id: number,
+  notes: string,
   title: string,
 ): Promise<Todo | null> => {
   try {
@@ -39,6 +41,7 @@ const updateTodo = async (
       where: { id },
       data: {
         title,
+        notes,
         updatedAt: new Date(),
       },
     });
@@ -60,18 +63,16 @@ const deleteTodo = async (tx: Prisma.TransactionClient, id: number): Promise<boo
   }
 };
 
-const descriptionTodo = async (
+const updateTodoNotes = async (
   tx: Prisma.TransactionClient,
   id: number,
-  description: string,
-  updatedAt: Date,
+  notes: string,
 ): Promise<Todo | null> => {
   try {
     return await tx.todo.update({
       where: { id },
       data: {
-        description,
-        updatedAt,
+        notes,
       },
     });
   } catch (error) {
@@ -85,5 +86,5 @@ export const todoQuery = {
   createTodo,
   updateTodo,
   deleteTodo,
-  descriptionTodo,
+  updateTodoNotes,
 };
