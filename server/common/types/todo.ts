@@ -3,4 +3,5 @@ export type Todo = {
   title: string;
   createdAt: Date;
   updatedAt: Date;
+  description: string;
 };
