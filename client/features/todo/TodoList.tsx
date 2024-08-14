@@ -1,4 +1,5 @@
 import type { Todo } from 'common/types/todo';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { apiClient } from 'utils/apiClient';
 import styles from './TodoList.module.css';
@@ -8,6 +9,7 @@ const TodoList = () => {
   const [title, setTitle] = useState('');
   const [editId, setEditId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null); // 警告メッセージの状態を追加
+  const router = useRouter();
 
   useEffect(() => {
     fetchTodos();
@@ -55,6 +57,10 @@ const TodoList = () => {
     }
   };
 
+  const handleTitleClick = (id: number) => {
+    router.push(`/todo/${id}`);
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Todo List</h1>{' '}
@@ -74,7 +80,9 @@ const TodoList = () => {
       <div className={styles.box}>
         {todos.map((todo) => (
           <div key={todo.id} className={styles.todo}>
-            <span>{todo.title}</span>
+            <span className={styles.link} onClick={() => handleTitleClick(todo.id)}>
+              {todo.title}
+            </span>
             <button onClick={() => handleEdit(todo.id, todo.title)} className={styles.button}>
               Edit
             </button>
