@@ -19,7 +19,7 @@ export default defineController(() => ({
   },
   post: async ({ body }) => {
     try {
-      const todo = await todoUseCase.createTodo(body.title);
+      const todo = await todoUseCase.createTodo(body.title, body.description);
       return {
         status: 201,
         body: todo,
@@ -34,7 +34,7 @@ export default defineController(() => ({
   },
   put: async ({ body }) => {
     try {
-      const todo = await todoUseCase.updateTodo(body.id, body.title);
+      const todo = await todoUseCase.updateTodo(body.id, body.title, body.description);
       if (todo) {
         return { status: 200, body: todo };
       } else {
@@ -61,6 +61,21 @@ export default defineController(() => ({
       return {
         status: 500,
         body: { error: 'Failed to delete todo' },
+      };
+    }
+  },
+  description: async ({ body }) => {
+    try {
+      const desc = await todoUseCase.descriptionTodo(body.id, body.description);
+      return {
+        status: 202,
+        body: desc,
+      };
+    } catch (error) {
+      console.error('Error in descriptionTodo:', error);
+      return {
+        status: 500,
+        body: { error: 'Failed to description Todo' },
       };
     }
   },

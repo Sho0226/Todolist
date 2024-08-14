@@ -19,7 +19,6 @@ const createTodo = async (
     return await tx.todo.create({
       data: {
         title,
-        description,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -34,14 +33,12 @@ const updateTodo = async (
   tx: Prisma.TransactionClient,
   id: number,
   title: string,
-  description: string,
 ): Promise<Todo | null> => {
   try {
     return await tx.todo.update({
       where: { id },
       data: {
         title,
-        description,
         updatedAt: new Date(),
       },
     });

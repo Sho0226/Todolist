@@ -9,15 +9,15 @@ export const todoUseCase = {
       return Todos;
     }),
 
-  createTodo: async (title: string, description: string): Promise<Todo> =>
+  createTodo: async (title: string): Promise<Todo> =>
     transaction('RepeatableRead', async (tx) => {
-      const createTodo = await todoQuery.createTodo(tx, title, description);
+      const createTodo = await todoQuery.createTodo(tx, title);
       return createTodo;
     }),
 
-  updateTodo: async (id: number, title: string, description: string): Promise<Todo | null> =>
+  updateTodo: async (id: number, title: string): Promise<Todo | null> =>
     transaction('RepeatableRead', async (tx) => {
-      const updateTodo = await todoQuery.updateTodo(tx, id, title, description);
+      const updateTodo = await todoQuery.updateTodo(tx, id, title);
       return updateTodo;
     }),
 
@@ -27,9 +27,9 @@ export const todoUseCase = {
       return deleted;
     }),
 
-  descriptionTodo: async (id: number, description: string, updatedAt: Date): Promise<Todo | null> =>
+  descriptionTodo: async (id: number, description: string): Promise<Todo | null> =>
     transaction('RepeatableRead', async (tx) => {
-      const descriptionTodo = await todoQuery.descriptionTodo(tx, id, description, updatedAt);
-      return descriptionTodo;
+      const updatedDescription = await todoQuery.descriptionTodo(tx, id, description, new Date());
+      return updatedDescription;
     }),
 };
