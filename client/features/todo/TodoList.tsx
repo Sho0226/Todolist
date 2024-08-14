@@ -1,6 +1,7 @@
 import type { Todo } from 'common/types/todo';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { pagesPath } from 'utils/$path';
 import { apiClient } from 'utils/apiClient';
 import styles from './TodoList.module.css';
 
@@ -58,12 +59,12 @@ const TodoList = () => {
   };
 
   const handleTitleClick = (id: number) => {
-    router.push(`/todo/${id}`);
+    router.push(pagesPath.todo._todoId(id).$url());
   };
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Todo List</h1>{' '}
+      <h1 className={styles.title}>Todo List</h1>
       <div className={`${styles.error} ${!error ? styles.hidden : ''}`}>{error}</div>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input

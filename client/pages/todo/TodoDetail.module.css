@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  background-color: aliceblue;
+}
+
+.title {
+  font-size: 3em;
+  color: #2f4f4f;
+}
+
+.error {
+  color: red;
+  visibility: visible;
+}
