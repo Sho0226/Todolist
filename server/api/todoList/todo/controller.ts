@@ -19,7 +19,7 @@ export default defineController(() => ({
   },
   post: async ({ body }) => {
     try {
-      const todo = await todoUseCase.createTodo(body.title, body.notes);
+      const todo = await todoUseCase.createTodo(body.title, body.notes ?? '');
       return {
         status: 201,
         body: todo,
@@ -34,7 +34,7 @@ export default defineController(() => ({
   },
   put: async ({ body }) => {
     try {
-      const todo = await todoUseCase.updateTodo(body.id, body.title, body.notes);
+      const todo = await todoUseCase.updateTodo(body.id, body.title, body.notes ?? '');
       if (todo) {
         return { status: 200, body: todo };
       } else {
@@ -64,9 +64,9 @@ export default defineController(() => ({
       };
     }
   },
-  putNote: async ({ body }) => {
+  putNote: async ({ body }: { body: { id: number; notes: string } }) => {
     try {
-      const todo = await todoUseCase.updateTodoNotes(body.id, body.notes);
+      const todo = await todoUseCase.updateTodoNotes(body.id, body.notes ?? '');
       if (todo) {
         return { status: 200, body: todo };
       } else {

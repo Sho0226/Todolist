@@ -17,7 +17,7 @@ const TodoList = () => {
   }, []);
 
   const fetchTodos = async () => {
-    const res = await apiClient.todo.$get();
+    const res = await apiClient.todoList.todo.$get();
     setTodos(res);
   };
 
@@ -30,9 +30,9 @@ const TodoList = () => {
 
     try {
       if (editId !== null) {
-        await apiClient.todo.$put({ body: { title, id: editId } });
+        await apiClient.todoList.todo.$put({ body: { title, id: editId, notes: '' } });
       } else {
-        await apiClient.todo.$post({ body: { title } });
+        await apiClient.todoList.todo.$post({ body: { title, notes: '' } });
       }
       setTitle('');
       setEditId(null);
@@ -51,7 +51,7 @@ const TodoList = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await apiClient.todo.$delete({ body: { id } });
+      await apiClient.todoList.todo.$delete({ body: { id } });
       fetchTodos();
     } catch (error) {
       console.error('Error deleting todo:', error);

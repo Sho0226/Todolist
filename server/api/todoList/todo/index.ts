@@ -8,7 +8,7 @@ export type Methods = DefineMethods<{
   post: {
     reqBody: {
       title: string;
-      notes: string;
+      notes?: string;
     };
     resBody: Todo;
   };
@@ -16,7 +16,7 @@ export type Methods = DefineMethods<{
     reqBody: {
       title: string;
       id: number;
-      notes: string;
+      notes?: string;
     };
     resBody: Todo | null;
   };

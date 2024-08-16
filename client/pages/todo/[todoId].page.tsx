@@ -19,7 +19,7 @@ const TodoDetail = () => {
 
   const fetchTodo = async () => {
     try {
-      const allTodos = await apiClient.todo.$get();
+      const allTodos = await apiClient.todoList.todo.$get();
       const specificTodo = allTodos.find((todo) => todo.id === Number(todoId));
       if (specificTodo) {
         setTodo(specificTodo);
@@ -39,7 +39,7 @@ const TodoDetail = () => {
   const saveNotes = async () => {
     if (todo) {
       try {
-        await apiClient.todo.$patch({ body: { ...todo, notes } });
+        await apiClient.todoList.todo.???
         setError(null);
       } catch (error) {
         console.error('Error saving notes:', error);
