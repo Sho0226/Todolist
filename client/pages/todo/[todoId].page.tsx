@@ -66,8 +66,14 @@ const TodoDetail = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{todo.title}</h1>
-      <p className={styles.date}>作成日: {new Date(todo.createdAt).toLocaleDateString()}</p>
-      <p className={styles.date}>更新日: {new Date(todo.updatedAt).toLocaleDateString()}</p>
+      <p className={styles.date}>
+        作成日: {new Date(todo.createdAt).toLocaleDateString()}{' '}
+        {new Date(todo.createdAt).toLocaleTimeString()}
+      </p>
+      <p className={styles.date}>
+        更新日: {new Date(todo.updatedAt).toLocaleDateString()}{' '}
+        {new Date(todo.createdAt).toLocaleTimeString()}
+      </p>
       <textarea
         className={styles.notes}
         value={notes}
