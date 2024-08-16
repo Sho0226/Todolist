@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Todo" ALTER COLUMN "notes" DROP NOT NULL;

@@ -39,7 +39,13 @@ const TodoDetail = () => {
   const saveNotes = async () => {
     if (todo) {
       try {
-        await apiClient.todoList.todo.???
+        await apiClient.todoList.todo.$put({
+          body: {
+            id: todo.id,
+            title: todo.title,
+            notes,
+          },
+        });
         setError(null);
       } catch (error) {
         console.error('Error saving notes:', error);
