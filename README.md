@@ -1,4 +1,3 @@
-# C A T A P U L T
 
 aspida と frourio を用いた TypeScript フルスタックテンプレート
 
