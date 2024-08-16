@@ -71,8 +71,10 @@ const TodoDetail = () => {
       <textarea
         className={styles.notes}
         value={notes}
-        onChange={handleNotesChange}
-        onBlur={saveNotes}
+        onChange={(e) => {
+          handleNotesChange(e);
+          saveNotes();
+        }}
       />
     </div>
   );
