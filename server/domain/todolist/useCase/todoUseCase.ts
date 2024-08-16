@@ -27,7 +27,7 @@ export const todoUseCase = {
       return deleted;
     }),
 
-  notesTodo: async (id: number, notes: string): Promise<Todo | null> =>
+  updateTodoNotes: async (id: number, notes: string): Promise<Todo | null> =>
     transaction('RepeatableRead', async (tx) => {
       const updatedDescription = await todoQuery.updateTodoNotes(tx, id, notes);
       return updatedDescription;

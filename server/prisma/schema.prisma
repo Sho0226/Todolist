@@ -30,5 +30,5 @@ model Todo {
   title     String
   createdAt DateTime
   updatedAt DateTime
-  notes     String
+  notes     String?
 }

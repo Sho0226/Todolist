@@ -64,4 +64,20 @@ export default defineController(() => ({
       };
     }
   },
+  putNote: async ({ body }) => {
+    try {
+      const todo = await todoUseCase.updateTodoNotes(body.id, body.notes);
+      if (todo) {
+        return { status: 200, body: todo };
+      } else {
+        return { status: 404, body: { error: 'Todo Not Found' } };
+      }
+    } catch (error) {
+      console.error('Error in updateTodoNotes:', error);
+      return {
+        status: 500,
+        body: { error: 'Failed to update todo notes' },
+      };
+    }
+  },
 }));
