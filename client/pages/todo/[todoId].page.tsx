@@ -23,6 +23,7 @@ const TodoDetail = () => {
       const specificTodo = allTodos.find((todo) => todo.id === Number(todoId));
       if (specificTodo) {
         setTodo(specificTodo);
+        setNotes(specificTodo.notes || '');
       } else {
         setError('Todoが見つかりません');
       }

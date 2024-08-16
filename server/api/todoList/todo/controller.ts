@@ -18,6 +18,7 @@ export default defineController(() => ({
     }
   },
   post: async ({ body }) => {
+    console.log('post', body);
     try {
       const todo = await todoUseCase.createTodo(body.title, body.notes ?? '');
       return {
@@ -33,6 +34,7 @@ export default defineController(() => ({
     }
   },
   put: async ({ body }) => {
+    console.log('put', body);
     try {
       const todo = await todoUseCase.updateTodo(body.id, body.title, body.notes ?? '');
       if (todo) {
@@ -61,22 +63,6 @@ export default defineController(() => ({
       return {
         status: 500,
         body: { error: 'Failed to delete todo' },
-      };
-    }
-  },
-  putNote: async ({ body }: { body: { id: number; notes: string } }) => {
-    try {
-      const todo = await todoUseCase.updateTodoNotes(body.id, body.notes ?? '');
-      if (todo) {
-        return { status: 200, body: todo };
-      } else {
-        return { status: 404, body: { error: 'Todo Not Found' } };
-      }
-    } catch (error) {
-      console.error('Error in updateTodoNotes:', error);
-      return {
-        status: 500,
-        body: { error: 'Failed to update todo notes' },
       };
     }
   },

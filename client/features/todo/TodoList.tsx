@@ -30,9 +30,9 @@ const TodoList = () => {
 
     try {
       if (editId !== null) {
-        await apiClient.todoList.todo.$put({ body: { title, id: editId, notes: '' } });
+        await apiClient.todoList.todo.$put({ body: { title, id: editId } });
       } else {
-        await apiClient.todoList.todo.$post({ body: { title, notes: '' } });
+        await apiClient.todoList.todo.$post({ body: { title } });
       }
       setTitle('');
       setEditId(null);

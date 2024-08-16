@@ -18,6 +18,7 @@ export const todoUseCase = {
   updateTodo: async (id: number, title: string, notes: string): Promise<Todo | null> =>
     transaction('RepeatableRead', async (tx) => {
       const updateTodo = await todoQuery.updateTodo(tx, id, title, notes);
+      console.log('useCase', updateTodo?.title);
       return updateTodo;
     }),
 
@@ -25,11 +26,5 @@ export const todoUseCase = {
     transaction('RepeatableRead', async (tx) => {
       const deleted = await todoQuery.deleteTodo(tx, id);
       return deleted;
-    }),
-
-  updateTodoNotes: async (id: number, notes: string): Promise<Todo | null> =>
-    transaction('RepeatableRead', async (tx) => {
-      const updatedDescription = await todoQuery.updateTodoNotes(tx, id, notes);
-      return updatedDescription;
     }),
 };

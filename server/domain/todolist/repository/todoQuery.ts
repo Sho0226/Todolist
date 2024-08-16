@@ -33,10 +33,11 @@ const createTodo = async (
 const updateTodo = async (
   tx: Prisma.TransactionClient,
   id: number,
-  notes: string,
   title: string,
+  notes: string,
 ): Promise<Todo | null> => {
   try {
+    console.log('Query', title);
     return await tx.todo.update({
       where: { id },
       data: {
@@ -63,28 +64,9 @@ const deleteTodo = async (tx: Prisma.TransactionClient, id: number): Promise<boo
   }
 };
 
-const updateTodoNotes = async (
-  tx: Prisma.TransactionClient,
-  id: number,
-  notes: string,
-): Promise<Todo | null> => {
-  try {
-    return await tx.todo.update({
-      where: { id },
-      data: {
-        notes,
-      },
-    });
-  } catch (error) {
-    console.error('Error updating todo description in database:', error);
-    throw new Error('Failed to update todo description');
-  }
-};
-
 export const todoQuery = {
   getAllTodos,
   createTodo,
   updateTodo,
   deleteTodo,
-  updateTodoNotes,
 };
