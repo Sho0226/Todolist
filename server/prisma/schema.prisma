@@ -25,10 +25,18 @@ model Task {
   authorId  String
 }
 
+model TodoUser {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  todos Todo[] // 1ユーザーが複数のTodoを持つリレーション
+}
+
 model Todo {
-  id        Int      @id @default(autoincrement())
-  title     String
-  createdAt DateTime
-  updatedAt DateTime
-  notes     String?
+  id         Int      @id @default(autoincrement())
+  title      String
+  createdAt  DateTime @default(now()) // デフォルトで現在時刻
+  updatedAt  DateTime @updatedAt // 更新時に自動で現在時刻
+  notes      String?
+  todoUser   TodoUser @relation(fields: [todoUserId], references: [id]) // ユーザーとのリレーション
+  todoUserId Int // 外部キーとしてTodoUserのIDを参照
 }
