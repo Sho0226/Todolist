@@ -3,7 +3,9 @@ import type { Todo } from 'common/types/todo';
 
 const getAllTodos = async (tx: Prisma.TransactionClient): Promise<Todo[]> => {
   try {
-    return await tx.todo.findMany();
+    return await tx.todo.findMany({
+      where: { todoUserId },
+    });
   } catch (error) {
     console.error('Error fetching todos from database:', error);
     throw new Error('Failed to fetch todos');
