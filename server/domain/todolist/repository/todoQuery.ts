@@ -24,6 +24,7 @@ const createTodo = async (
         createdAt: new Date(),
         updatedAt: new Date(),
         notes,
+        todoUserId,
       },
     });
   } catch (error) {

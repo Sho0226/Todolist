@@ -4,4 +4,6 @@ export type Todo = {
   createdAt: Date;
   updatedAt: Date;
   notes: string | null;
+  todoUser: string;
+  todoUserId: number;
 };
