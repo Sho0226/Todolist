@@ -16,6 +16,7 @@ const createTodo = async (
   tx: Prisma.TransactionClient,
   title: string,
   notes: string,
+  todoUserId: number,
 ): Promise<Todo> => {
   try {
     return await tx.todo.create({
