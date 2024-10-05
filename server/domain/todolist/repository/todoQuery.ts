@@ -1,7 +1,7 @@
 import type { Prisma } from '@prisma/client';
 import type { Todo } from 'common/types/todo';
 
-const getAllTodos = async (tx: Prisma.TransactionClient): Promise<Todo[]> => {
+const getAllTodos = async (tx: Prisma.TransactionClient, todoUserId: number): Promise<Todo[]> => {
   try {
     return await tx.todo.findMany({
       where: { todoUserId },
