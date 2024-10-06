@@ -5,6 +5,7 @@ const getAllTodos = async (tx: Prisma.TransactionClient, todoUserId: number): Pr
   try {
     return await tx.todo.findMany({
       where: { todoUserId },
+      include: { todoUser: true },
     });
   } catch (error) {
     console.error('Error fetching todos from database:', error);
@@ -16,6 +17,7 @@ const createTodo = async (
   tx: Prisma.TransactionClient,
   title: string,
   notes: string,
+  todoUser: string,
   todoUserId: number,
 ): Promise<Todo> => {
   try {
@@ -25,6 +27,7 @@ const createTodo = async (
         createdAt: new Date(),
         updatedAt: new Date(),
         notes,
+        todoUser,
         todoUserId,
       },
     });
