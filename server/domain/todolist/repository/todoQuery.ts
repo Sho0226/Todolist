@@ -20,7 +20,7 @@ const createTodo = async (
   todoUserId: number,
 ): Promise<Todo> => {
   try {
-    return await tx.todo.create({
+    const newtodo = await tx.todo.create({
       data: {
         title,
         createdAt: new Date(),
@@ -29,6 +29,17 @@ const createTodo = async (
         todoUserId,
       },
     });
+
+    const completeTodo = await tx.todo.findUnique({
+      where: { id: newtodo.id },
+      include: { todoUser: true },
+    });
+
+    if (!completeTodo) {
+      throw new Error('Failed to retrieve the created todo with user information.');
+    }
+
+    return completeTodo;
   } catch (error) {
     console.error('Error creating todo in database:', error);
     throw new Error('Failed to create todo');
@@ -42,7 +53,6 @@ const updateTodo = async (
   notes: string,
 ): Promise<Todo | null> => {
   try {
-    console.log('Query', title);
     return await tx.todo.update({
       where: { id },
       data: {
@@ -50,6 +60,7 @@ const updateTodo = async (
         notes,
         updatedAt: new Date(),
       },
+      include: { todoUser: true },
     });
   } catch (error) {
     console.error('Error updating todo in database:', error);
@@ -59,10 +70,10 @@ const updateTodo = async (
 
 const deleteTodo = async (tx: Prisma.TransactionClient, id: number): Promise<boolean> => {
   try {
-    const result = await tx.todo.deleteMany({
+    await tx.todo.delete({
       where: { id },
     });
-    return result.count > 0;
+    return true;
   } catch (error) {
     console.error('Error deleting todo in database:', error);
     throw new Error('Failed to delete todo');
