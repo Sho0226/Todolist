@@ -1,4 +1,5 @@
-import type { Prisma } from '@prisma/client';
+import type { Prisma, TodoUser } from '@prisma/client';
+import bcrypt from 'bcrypt';
 import type { Todo } from 'common/types/todo';
 
 const getAllTodos = async (tx: Prisma.TransactionClient, todoUserId: number): Promise<Todo[]> => {
@@ -80,9 +81,33 @@ const deleteTodo = async (tx: Prisma.TransactionClient, id: number): Promise<boo
   }
 };
 
+const createUser = async (
+  tx: Prisma.TransactionClient,
+  name: string,
+  password: string,
+): Promise<TodoUser> => {
+  const hashedPassword = await bcrypt.hash(password, 10);
+  return await tx.todoUser.create({
+    data: {
+      name,
+      password: hashedPassword,
+    },
+  });
+};
+
+const findUserByName = async (
+  tx: Prisma.TransactionClient,
+  name: string,
+): Promise<TodoUser | null> => {
+  return await tx.todoUser.findUnique({
+    where: { name },
+  });
+};
 export const todoQuery = {
   getAllTodos,
   createTodo,
   updateTodo,
   deleteTodo,
+  createUser,
+  findUserByName,
 };

@@ -26,9 +26,10 @@ model Task {
 }
 
 model TodoUser {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  todos Todo[] // 1ユーザーが複数のTodoを持つリレーション
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  password String
+  todos    Todo[] // 1ユーザーが複数のTodoを持つリレーション
 }
 
 model Todo {

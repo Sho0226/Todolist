@@ -7,6 +7,7 @@ export type Todo = {
   todoUser?: {
     id: number;
     name: string;
+    password: string;
   };
   todoUserId: number;
 };
