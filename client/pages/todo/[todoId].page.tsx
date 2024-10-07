@@ -18,8 +18,18 @@ const TodoDetail = () => {
   }, [todoId]);
 
   const fetchTodo = async () => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      setError('User ID is missing. Please log in again.');
+      return;
+    }
+
     try {
-      const allTodos = await apiClient.todoList.todo.$get();
+      const allTodos = await apiClient.todoList.todo.$get({
+        headers: {
+          'x-todo-user-id': userId,
+        },
+      });
       const specificTodo = allTodos.find((todo) => todo.id === Number(todoId));
       if (specificTodo) {
         setTodo(specificTodo);
@@ -38,6 +48,12 @@ const TodoDetail = () => {
   };
 
   const saveNotes = async () => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      setError('User ID is missing. Please log in again.');
+      return;
+    }
+
     if (todo) {
       try {
         await apiClient.todoList.todo.$put({
@@ -45,6 +61,9 @@ const TodoDetail = () => {
             id: todo.id,
             title: todo.title,
             notes,
+          },
+          headers: {
+            'x-todo-user-id': userId,
           },
         });
         setError(null);
@@ -72,16 +91,12 @@ const TodoDetail = () => {
       </p>
       <p className={styles.date}>
         更新日: {new Date(todo.updatedAt).toLocaleDateString()}{' '}
-        {new Date(todo.createdAt).toLocaleTimeString()}
+        {new Date(todo.updatedAt).toLocaleTimeString()}
       </p>
-      <textarea
-        className={styles.notes}
-        value={notes}
-        onChange={(e) => {
-          handleNotesChange(e);
-          saveNotes();
-        }}
-      />
+      <textarea className={styles.notes} value={notes} onChange={handleNotesChange} />
+      <button onClick={saveNotes} className={styles.saveButton}>
+        Save Notes
+      </button>
     </div>
   );
 };
