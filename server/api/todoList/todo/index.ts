@@ -3,17 +3,25 @@ import type { Todo } from 'common/types/todo';
 
 export type Methods = DefineMethods<{
   get: {
+    reqHeaders: {
+      'x-todo-user-id': string;
+    };
     resBody: Todo[];
   };
   post: {
+    reqHeaders: {
+      'x-todo-user-id': string;
+    };
     reqBody: {
       title: string;
       notes?: string;
-      todoUserId: number;
     };
     resBody: Todo;
   };
   put: {
+    reqHeaders: {
+      'x-todo-user-id': string;
+    };
     reqBody: {
       title: string;
       id: number;
@@ -22,6 +30,9 @@ export type Methods = DefineMethods<{
     resBody: Todo | null;
   };
   delete: {
+    reqHeaders: {
+      'x-todo-user-id': string;
+    };
     reqBody: {
       id: number;
     };

@@ -9,7 +9,7 @@ export default defineController(() => ({
         return { status: 400, body: { error: 'Invalid user ID' } };
       }
 
-      const todos = await todoUseCase.getTodo();
+      const todos = await todoUseCase.getTodo(todoUserId);
       return {
         status: 200,
         body: todos,
@@ -29,7 +29,7 @@ export default defineController(() => ({
       if (isNaN(todoUserId)) {
         return { status: 400, body: { error: 'Invalid user ID' } };
       }
-      const todo = await todoUseCase.createTodo(body.title, body.notes ?? '');
+      const todo = await todoUseCase.createTodo(body.title, body.notes ?? '', todoUserId);
       return {
         status: 201,
         body: todo,
@@ -49,6 +49,7 @@ export default defineController(() => ({
       if (isNaN(todoUserId)) {
         return { status: 400, body: { error: 'Invalid user ID' } };
       }
+
       const todo = await todoUseCase.updateTodo(body.id, body.title, body.notes ?? '');
       if (todo) {
         return { status: 200, body: todo };

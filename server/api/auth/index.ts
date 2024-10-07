@@ -6,6 +6,6 @@ export type Methods = DefineMethods<{
       name: string;
       password: string;
     };
-    resBody: string;
+    resBody: { token: string };
   };
 }>;
