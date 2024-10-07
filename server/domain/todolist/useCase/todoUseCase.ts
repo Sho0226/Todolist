@@ -1,3 +1,4 @@
+import type { TodoUser } from '@prisma/client';
 import type { Todo } from 'common/types/todo';
 import { transaction } from 'service/prismaClient';
 import { todoQuery } from '../repository/todoQuery';
@@ -26,5 +27,17 @@ export const todoUseCase = {
     transaction('RepeatableRead', async (tx) => {
       const deleted = await todoQuery.deleteTodo(tx, id);
       return deleted;
+    }),
+
+  createUser: async (name: string, password: string): Promise<TodoUser> =>
+    transaction('RepeatableRead', async (tx) => {
+      const create = await todoQuery.createUser(tx, name, password);
+      return create;
+    }),
+
+  findUserByName: async (name: string): Promise<TodoUser | null> =>
+    transaction('RepeatableRead', async (tx) => {
+      const findUser = await todoQuery.findUserByName(tx, name);
+      return findUser;
     }),
 };
