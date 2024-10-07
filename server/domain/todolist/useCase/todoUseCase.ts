@@ -3,15 +3,15 @@ import { transaction } from 'service/prismaClient';
 import { todoQuery } from '../repository/todoQuery';
 
 export const todoUseCase = {
-  getTodo: async (): Promise<Todo[]> =>
+  getTodo: async (todoUserId: number): Promise<Todo[]> =>
     transaction('RepeatableRead', async (tx) => {
-      const Todos = await todoQuery.getAllTodos(tx);
+      const Todos = await todoQuery.getAllTodos(tx, todoUserId);
       return Todos;
     }),
 
-  createTodo: async (title: string, notes: string): Promise<Todo> =>
+  createTodo: async (title: string, notes: string, todoUser: number): Promise<Todo> =>
     transaction('RepeatableRead', async (tx) => {
-      const createTodo = await todoQuery.createTodo(tx, title, notes);
+      const createTodo = await todoQuery.createTodo(tx, title, notes, todoUser);
       return createTodo;
     }),
 
