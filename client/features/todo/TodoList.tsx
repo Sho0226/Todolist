@@ -11,14 +11,24 @@ const TodoList = () => {
   const [editId, setEditId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null); // 警告メッセージの状態を追加
   const router = useRouter();
+  const userId = localStorage.getItem('userId') || ''; // ユーザーIDを取得
 
   useEffect(() => {
     fetchTodos();
   }, []);
 
   const fetchTodos = async () => {
-    const res = await apiClient.todoList.todo.$get();
-    setTodos(res);
+    try {
+      const res = await apiClient.todoList.todo.$get({
+        headers: {
+          'x-todo-user-id': userId,
+        },
+      });
+      setTodos(res);
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+      setError('Todoの取得中にエラーが発生しました');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -30,9 +40,19 @@ const TodoList = () => {
 
     try {
       if (editId !== null) {
-        await apiClient.todoList.todo.$put({ body: { title, id: editId } });
+        await apiClient.todoList.todo.$put({
+          body: { title, id: editId },
+          headers: {
+            'x-todo-user-id': userId,
+          },
+        });
       } else {
-        await apiClient.todoList.todo.$post({ body: { title } });
+        await apiClient.todoList.todo.$post({
+          body: { title },
+          headers: {
+            'x-todo-user-id': userId,
+          },
+        });
       }
       setTitle('');
       setEditId(null);
@@ -51,7 +71,12 @@ const TodoList = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await apiClient.todoList.todo.$delete({ body: { id } });
+      await apiClient.todoList.todo.$delete({
+        body: { id },
+        headers: {
+          'x-todo-user-id': userId,
+        },
+      });
       fetchTodos();
     } catch (error) {
       console.error('Error deleting todo:', error);

@@ -94,9 +94,7 @@ const TodoDetail = () => {
         {new Date(todo.updatedAt).toLocaleTimeString()}
       </p>
       <textarea className={styles.notes} value={notes} onChange={handleNotesChange} />
-      <button onClick={saveNotes} className={styles.saveButton}>
-        Save Notes
-      </button>
+      <button onClick={saveNotes}>Save Notes</button>
     </div>
   );
 };
