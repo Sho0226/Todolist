@@ -17,7 +17,6 @@ const createTodo = async (
   tx: Prisma.TransactionClient,
   title: string,
   notes: string,
-  todoUser: string,
   todoUserId: number,
 ): Promise<Todo> => {
   try {
@@ -27,7 +26,6 @@ const createTodo = async (
         createdAt: new Date(),
         updatedAt: new Date(),
         notes,
-        todoUser,
         todoUserId,
       },
     });
