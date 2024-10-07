@@ -9,6 +9,7 @@ export type Methods = DefineMethods<{
     reqBody: {
       title: string;
       notes?: string;
+      todoUserId: number;
     };
     resBody: Todo;
   };
