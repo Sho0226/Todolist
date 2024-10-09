@@ -30,6 +30,7 @@ export default defineController(() => ({
         return { status: 400, body: { error: 'Invalid user ID' } };
       }
       const todo = await todoUseCase.createTodo(body.title, body.notes ?? '', todoUserId);
+      console.log(todo);
       return {
         status: 201,
         body: todo,

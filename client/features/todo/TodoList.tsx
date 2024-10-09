@@ -1,6 +1,6 @@
 import type { Todo } from 'common/types/todo';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { pagesPath } from 'utils/$path';
 import { apiClient } from 'utils/apiClient';
 import styles from './TodoList.module.css';
@@ -12,11 +12,6 @@ const TodoList = () => {
   const [error, setError] = useState<string | null>(null); // 警告メッセージの状態を追加
   const router = useRouter();
   const userId = localStorage.getItem('userId') || ''; // ユーザーIDを取得
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
   const fetchTodos = async () => {
     try {
       const res = await apiClient.todoList.todo.$get({
@@ -24,10 +19,16 @@ const TodoList = () => {
           'x-todo-user-id': userId,
         },
       });
+      console.log(res);
       setTodos(res);
     } catch (error) {
-      console.error('Error fetching todos:', error);
-      setError('Todoの取得中にエラーが発生しました');
+      if (error instanceof Error) {
+        console.error('Error fetching todos:', error.message);
+        setError(`Todoの取得中にエラーが発生しました: ${error.message}`);
+      } else {
+        console.error('Unexpected error fetching todos:', error);
+        setError('Todoの取得中に予期しないエラーが発生しました');
+      }
     }
   };
 
