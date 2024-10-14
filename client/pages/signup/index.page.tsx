@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
@@ -36,12 +37,24 @@ const SignUp = () => {
       if ('token' in response) {
         localStorage.setItem('authToken', response.token);
         router.push('/');
-      } else {
-        setError(response.error || 'サインアップに失敗しました。');
       }
     } catch (err) {
-      console.error('Signup failed:', err);
-      setError('サインアップに失敗しました。再度お試しください。');
+      // エラー処理
+      if (axios.isAxiosError(err)) {
+        //eslint-disable-next-line max-depth
+        if (
+          err.response &&
+          err.response.data &&
+          err.response.data.error === 'User already exists'
+        ) {
+          setError('この名前はすでに使用されています。別の名前を選択してください。');
+        } else {
+          console.log(err.response && err.response.data);
+          setError('サインアップに失敗しました。再度お試しください。');
+        }
+      } else {
+        setError('サインアップに失敗しました。');
+      }
     }
   };
 

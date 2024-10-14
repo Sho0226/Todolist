@@ -5,7 +5,7 @@ import { defineController } from './$relay';
 export default defineController(() => ({
   get: async ({ headers }) => {
     try {
-      const token = headers.authorization?.split('')[1];
+      const token = headers.authorization?.split(' ')[1];
       if (!token) {
         return { status: 401, body: { error: '認証トークンがありません' } };
       }
