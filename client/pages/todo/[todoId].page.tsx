@@ -6,7 +6,7 @@ import styles from './TodoDetail.module.css';
 
 const TodoDetail = () => {
   const router = useRouter();
-  const { todoId } = router.query; // URLからtodoIdを取得
+  const { todoId } = router.query;
   const [todo, setTodo] = useState<Todo | null>(null);
   const [notes, setNotes] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -17,17 +17,21 @@ const TodoDetail = () => {
     }
   }, [todoId]);
 
+  const getAuthToken = () => {
+    return localStorage.getItem('authToken');
+  };
+  //eslint-disable-next-line complexity
   const fetchTodo = async () => {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      setError('User ID is missing. Please log in again.');
+    const token = getAuthToken();
+    if (!token) {
+      router.push('/login');
       return;
     }
 
     try {
       const allTodos = await apiClient.todoList.todo.$get({
         headers: {
-          'x-todo-user-id': userId,
+          authorization: `Bearer ${token}`,
         },
       });
       const specificTodo = allTodos.find((todo) => todo.id === Number(todoId));
@@ -40,17 +44,20 @@ const TodoDetail = () => {
     } catch (error) {
       console.error('Error fetching todos:', error);
       setError('Todoの取得中にエラーが発生しました');
+      if (error instanceof Error && error.message.includes('401')) {
+        router.push('/login');
+      }
     }
   };
 
   const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNotes(e.target.value);
   };
-
+  //eslint-disable-next-line complexity
   const saveNotes = async () => {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      setError('User ID is missing. Please log in again.');
+    const token = getAuthToken();
+    if (!token) {
+      router.push('/login');
       return;
     }
 
@@ -63,13 +70,17 @@ const TodoDetail = () => {
             notes,
           },
           headers: {
-            'x-todo-user-id': userId,
+            authorization: `Bearer ${token}`,
           },
         });
         setError(null);
       } catch (error) {
         console.error('Error saving notes:', error);
         setError('メモの保存中にエラーが発生しました');
+        //eslint-disable-next-line max-depth
+        if (error instanceof Error && error.message.includes('401')) {
+          router.push('/login');
+        }
       }
     }
   };

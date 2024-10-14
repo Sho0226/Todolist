@@ -18,6 +18,40 @@
   }
 }
 
+.headers {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #333;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #e0e0e0;
+  transition: color 0.3s ease;
+}
+
+.headers:hover {
+  color: #007bff;
+}
+
+.headers::after {
+  display: block;
+  width: 50px;
+  height: 3px;
+  margin-top: 5px;
+  content: '';
+  background-color: #007bff;
+}
+
+@media (width <= 768px) {
+  .headers {
+    font-size: 1.5em;
+    text-align: center;
+  }
+}
+
 .title {
   padding-top: 40px;
   font-size: 80px;
