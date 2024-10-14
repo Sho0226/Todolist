@@ -40,6 +40,9 @@ const createTodo = async (
       throw new Error('Failed to retrieve the created todo with user information.');
     }
 
+    console.log(newtodo);
+    console.log(completeTodo);
+
     return completeTodo;
   } catch (error) {
     console.error('Error creating todo in database:', error);

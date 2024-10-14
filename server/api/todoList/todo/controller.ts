@@ -1,14 +1,19 @@
+import { verifyToken } from 'common/utils/jwtUtils';
 import { todoUseCase } from 'domain/todolist/useCase/todoUseCase';
 import { defineController } from './$relay';
 
 export default defineController(() => ({
   get: async ({ headers }) => {
     try {
-      const todoUserId = parseInt(headers['x-todo-user-id'] as string, 10);
-      if (isNaN(todoUserId)) {
-        return { status: 400, body: { error: 'Invalid user ID' } };
+      const token = headers.authorization?.split('')[1];
+      if (!token) {
+        return { status: 401, body: { error: '認証トークンがありません' } };
       }
-
+      const payload = verifyToken(token);
+      if (!payload) {
+        return { status: 401, body: { error: '無効なトークンです' } };
+      }
+      const todoUserId = payload.userId;
       const todos = await todoUseCase.getTodo(todoUserId);
       return {
         status: 200,
@@ -23,14 +28,19 @@ export default defineController(() => ({
     }
   },
   post: async ({ body, headers }) => {
-    console.log('post', body);
     try {
-      const todoUserId = parseInt(headers['x-todo-user-id'] as string, 10);
-      if (isNaN(todoUserId)) {
-        return { status: 400, body: { error: 'Invalid user ID' } };
+      const token = headers.authorization?.split(' ')[1];
+      if (!token) {
+        return { status: 401, body: { error: '認証トークンがありません' } };
       }
+
+      const payload = verifyToken(token);
+      if (!payload) {
+        return { status: 401, body: { error: '無効なトークンです' } };
+      }
+
+      const todoUserId = payload.userId;
       const todo = await todoUseCase.createTodo(body.title, body.notes ?? '', todoUserId);
-      console.log(todo);
       return {
         status: 201,
         body: todo,
@@ -43,12 +53,17 @@ export default defineController(() => ({
       };
     }
   },
+  // eslint-disable-next-line complexity
   put: async ({ body, headers }) => {
-    console.log('put', body);
     try {
-      const todoUserId = parseInt(headers['x-todo-user-id'] as string, 10);
-      if (isNaN(todoUserId)) {
-        return { status: 400, body: { error: 'Invalid user ID' } };
+      const token = headers.authorization?.split(' ')[1];
+      if (!token) {
+        return { status: 401, body: { error: '認証トークンがありません' } };
+      }
+
+      const payload = verifyToken(token);
+      if (!payload) {
+        return { status: 401, body: { error: '無効なトークンです' } };
       }
 
       const todo = await todoUseCase.updateTodo(body.id, body.title, body.notes ?? '');
@@ -67,9 +82,14 @@ export default defineController(() => ({
   },
   delete: async ({ body, headers }) => {
     try {
-      const todoUserId = parseInt(headers['x-todo-user-id'] as string, 10);
-      if (isNaN(todoUserId)) {
-        return { status: 400, body: { error: 'Invalid user ID' } };
+      const token = headers.authorization?.split(' ')[1];
+      if (!token) {
+        return { status: 401, body: { error: '認証トークンがありません' } };
+      }
+
+      const payload = verifyToken(token);
+      if (!payload) {
+        return { status: 401, body: { error: '無効なトークンです' } };
       }
       const result = await todoUseCase.deleteTodo(body.id);
       if (result) {
