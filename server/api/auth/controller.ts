@@ -17,6 +17,7 @@ export default defineController(() => ({
       }
 
       const user = await todoUseCase.findUserByName(name);
+      logger.info(`Searching for user: "${name}"`);
 
       if (!user) {
         logger.info(`ログイン失敗: ユーザー "${name}" が見つかりません`);
