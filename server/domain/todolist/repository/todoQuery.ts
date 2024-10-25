@@ -1,5 +1,4 @@
 import type { Prisma, TodoUser } from '@prisma/client';
-import bcrypt from 'bcrypt';
 import type { Todo } from 'common/types/todo';
 
 const getAllTodos = async (tx: Prisma.TransactionClient, todoUserId: number): Promise<Todo[]> => {
@@ -89,13 +88,13 @@ const createUser = async (
   name: string,
   password: string,
 ): Promise<TodoUser> => {
-  const hashedPassword = await bcrypt.hash(password, 10);
-  return await tx.todoUser.create({
+  const newUser = await tx.todoUser.create({
     data: {
       name,
-      password: hashedPassword,
+      password,
     },
   });
+  return newUser;
 };
 
 const findUserByName = async (

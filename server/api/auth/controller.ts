@@ -6,6 +6,7 @@ import { todoUseCase } from 'domain/todolist/useCase/todoUseCase';
 import { defineController } from './$relay';
 
 export default defineController(() => ({
+  //eslint-disable-next-line complexity
   post: async ({ body }) => {
     try {
       const { name, password } = body;
@@ -25,7 +26,6 @@ export default defineController(() => ({
       }
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
-
       if (!isPasswordValid) {
         logger.info(`ログイン失敗: ユーザー "${name}" のパスワードが一致しません`);
         return { status: 401, body: { error: 'ユーザー名またはパスワードが正しくありません' } };
