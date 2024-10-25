@@ -72,7 +72,7 @@ const SignUp = () => {
           minLength={3}
         />
         <input
-          // type="password"
+          type="password"
           placeholder="Password (6文字以上)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
