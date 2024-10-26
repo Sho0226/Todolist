@@ -45,25 +45,27 @@ const Login = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Login</h1>
       <form onSubmit={handleLogin}>
-        <input
-          type="text"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={styles.input}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={styles.input}
-          required
-        />
-        <button type="submit" className={styles.button}>
-          Login
-        </button>
+        <div className={styles.form}>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={styles.input}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.input}
+            required
+          />
+          <button type="submit" className={styles.button}>
+            Login
+          </button>
+        </div>
       </form>
       {error && <p className={styles.error}>{error}</p>}
       <p className={styles.signupLink}>

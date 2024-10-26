@@ -61,29 +61,33 @@ const SignUp = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Sign Up</h1>
+
       <form onSubmit={handleSignUp}>
-        <input
-          type="text"
-          placeholder="Name (3文字以上)"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={styles.input}
-          required
-          minLength={3}
-        />
-        <input
-          type="password"
-          placeholder="Password (6文字以上)"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={styles.input}
-          required
-          minLength={6}
-        />
-        <button type="submit" className={styles.button}>
-          Sign Up
-        </button>
+        <div className={styles.form}>
+          <input
+            type="text"
+            placeholder="Name (3文字以上)"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={styles.input}
+            required
+            minLength={3}
+          />
+          <input
+            type="password"
+            placeholder="Password (6文字以上)"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.input}
+            required
+            minLength={6}
+          />
+          <button type="submit" className={styles.button}>
+            Sign Up
+          </button>
+        </div>
       </form>
+
       {error && <p className={styles.error}>{error}</p>}
     </div>
   );
