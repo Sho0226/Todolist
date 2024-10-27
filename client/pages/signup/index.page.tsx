@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
@@ -8,6 +9,7 @@ import styles from './SignUp.module.css';
 const SignUp = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [isRevealPassword, setIsRevealPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -73,15 +75,20 @@ const SignUp = () => {
             required
             minLength={3}
           />
-          <input
-            type="password"
-            placeholder="Password (6文字以上)"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={styles.input}
-            required
-            minLength={6}
-          />
+          <div className={styles.passwordContainer}>
+            <input
+              type="password"
+              placeholder="Password (6文字以上)"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={styles.input}
+              required
+              minLength={6}
+            />
+            <span onClick={() => setIsRevealPassword((prev) => !prev)} className={styles.eyeIcon}>
+              {isRevealPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </span>
+          </div>
           <button type="submit" className={styles.button}>
             Sign Up
           </button>
