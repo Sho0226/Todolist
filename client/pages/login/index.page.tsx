@@ -21,7 +21,7 @@ const Login = () => {
     }
 
     try {
-      const response = await apiClient.auth.$post({
+      const response = await apiClient.auth.user.login.$post({
         body: { name, password },
       });
 

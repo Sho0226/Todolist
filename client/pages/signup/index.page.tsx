@@ -27,7 +27,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await apiClient.auth.user.$post({
+      const response = await apiClient.auth.user.signup.$post({
         body: {
           name,
           password,
