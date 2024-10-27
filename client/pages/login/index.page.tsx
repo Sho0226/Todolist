@@ -1,3 +1,4 @@
+import { Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
@@ -7,6 +8,7 @@ import styles from './Login.module.css';
 const Login = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [isRevealPassword, setIsRevealPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -54,14 +56,19 @@ const Login = () => {
             className={styles.input}
             required
           />
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={styles.input}
-            required
-          />
+          <div className={styles.passwordContainer}>
+            <input
+              type={isRevealPassword ? 'text' : 'password'}
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={styles.input}
+              required
+            />
+            <span onClick={() => setIsRevealPassword((prev) => !prev)} className={styles.eyeIcon}>
+              {isRevealPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </span>
+          </div>
           <button type="submit" className={styles.button}>
             Login
           </button>
