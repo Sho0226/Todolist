@@ -42,7 +42,11 @@
   height: 3px;
   margin-top: 5px;
   content: '';
-  background-color: #007bff;
+}
+
+.logout {
+  display: flex;
+  justify-content: end;
 }
 
 @media (width <= 768px) {

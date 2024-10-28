@@ -29,6 +29,7 @@ const Login = () => {
 
       if ('token' in response) {
         localStorage.setItem('authToken', response.token);
+        localStorage.setItem('username', response.username);
         router.push('/');
       } else {
         setError('ログインに失敗しました。');

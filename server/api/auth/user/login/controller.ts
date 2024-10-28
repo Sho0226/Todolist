@@ -37,7 +37,7 @@ export default defineController(() => ({
 
       return {
         status: 200,
-        body: { token },
+        body: { token, username: user.name },
       };
     } catch (error) {
       logger.error('ログイン処理中にエラーが発生しました:', error);

@@ -9,16 +9,17 @@ const Home = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
+    const storedUsername = localStorage.getItem('username');
     if (!token) {
       router.push('/login');
     } else {
-      // ユーザー名を取得する処理（APIコールなど）を追加
-      setUsername('User'); // 仮のユーザー名
+      setUsername(storedUsername);
     }
   }, [router]);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('username');
     router.push('/login');
   };
 
@@ -26,8 +27,10 @@ const Home = () => {
     <div className={styles.container}>
       {username && (
         <div className={styles.headers}>
-          <p>Welcome, {username}!</p>
-          <button onClick={handleLogout}>Logout</button>
+          <p> {username}</p>
+          <div className={styles.logout}>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         </div>
       )}
       <TodoList />
