@@ -27,10 +27,10 @@ const Home = () => {
     <div className={styles.container}>
       {username && (
         <div className={styles.headers}>
-          <p> {username}</p>
-          <div className={styles.logout}>
-            <button onClick={handleLogout}>Logout</button>
-          </div>
+          <p>{username}</p>
+          <button className={styles.logout} onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       )}
       <TodoList />
