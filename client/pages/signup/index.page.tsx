@@ -38,6 +38,7 @@ const SignUp = () => {
 
       if ('token' in response) {
         localStorage.setItem('authToken', response.token);
+        localStorage.setItem('username', response.username);
         router.push('/');
       }
     } catch (err) {

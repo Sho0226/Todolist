@@ -6,7 +6,12 @@ export type Methods = DefineMethods<{
       name: string;
       password: string;
     };
-    resBody: { token: string } | { error: string };
+    resBody:
+      | {
+          token: string;
+          username: string;
+        }
+      | { error: string };
     status: 201 | 400 | 500;
   };
 }>;

@@ -36,7 +36,7 @@ export default defineController(() => ({
 
       const token = generateToken(newUser.id);
 
-      return { status: 201, body: { token } };
+      return { status: 201, body: { token, username: name } };
     } catch (error) {
       console.error('Error in user registration:', error);
       return { status: 500, body: { error: 'Failed to register user' } };
