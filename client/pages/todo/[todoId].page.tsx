@@ -1,6 +1,7 @@
 import type { Todo } from 'common/types/todo';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { apiClient } from 'utils/apiClient';
 import styles from './TodoDetail.module.css';
 
@@ -105,7 +106,9 @@ const TodoDetail = () => {
         {new Date(todo.updatedAt).toLocaleTimeString()}
       </p>
       <textarea className={styles.notes} value={notes} onChange={handleNotesChange} />
-      <button onClick={saveNotes}>Save Notes</button>
+      <button onClick={saveNotes}>
+        <IoPaperPlaneOutline />
+      </button>
     </div>
   );
 };
